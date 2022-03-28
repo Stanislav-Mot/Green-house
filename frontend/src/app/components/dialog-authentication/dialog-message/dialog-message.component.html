@@ -1,0 +1,15 @@
+<div mat-dialog-content class="mat-dialog">
+    <div class="head-dialog-mess">
+        Осталось совсем чуть-чуть!
+    </div>
+    <div class="text-dialog-mess" *ngIf="!data?.message">
+        Для завершения регистрации перейдите по ссылке, <br> отправленной Вам на указанный элетронный адрес
+    </div>
+    <div class="text-dialog-mess" *ngIf="data?.message">
+        {{data.message}}
+    </div>
+    <div class="back-to" (click)="backTo()">
+        <span>Вернуться на сайт</span>
+        
+    </div>
+</div>

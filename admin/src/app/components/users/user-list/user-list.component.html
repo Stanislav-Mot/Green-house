@@ -1,0 +1,90 @@
+<mat-form-field>
+    <mat-label>Фильтр</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+  
+    <button mat-raised-button color="primary" (click)="removeSelectedRows()" class="width">
+      Удалить выбранные строки
+    </button>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id. </th>
+         
+        <td mat-cell *matCellDef="let element" (click)="navigateUserPage(element.id)"  class="padding" >
+          <button mat-button [disabled]="element.id === 1"><span class="material-icons">edit</span> {{element.id}}</button> 
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Никнейм </th>
+        <td mat-cell *matCellDef="let element" class="td-pad"> {{element.username}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let element" class="td-pad"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Роль </th>
+        <td mat-cell *matCellDef="let element" class="td-pad"> {{element.roles[0]}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="first_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Имя </th>
+        <td mat-cell *matCellDef="let element" class="td-pad"> {{element.first_name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="last_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Фамилия </th>
+        <td mat-cell *matCellDef="let element" class="td-pad"> {{element.last_name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="patronymic">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Отчество </th>
+        <td mat-cell *matCellDef="let element" class="td-pad"> {{element.patronymic}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Телефон </th>
+        <td mat-cell *matCellDef="let element" class="td-pad"> {{element.phone}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Активный </th>
+        <td mat-cell *matCellDef="let element" class="td-pad"> {{element.active}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef class="align" class="padding-right">
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell  *matCellDef="let row" class="align" class="padding-right">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Нет данных, соответствующих фильтру "{{input.value}}"</td>
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  
+    <!-- <button mat-raised-button color="primary" routerLink="create" class="width">
+      Create user
+    </button> -->
+  </div>

@@ -1,0 +1,47 @@
+<button mat-raised-button color="primary" (click)="backClicked()" class="width">
+    Назад к категориям
+  </button>
+<div class="parent">
+    <mat-card class="my-card block" style="text-align: center;">
+        <mat-card-content >
+           <form id="create" class="my-form" [formGroup]="createForm" (ngSubmit)="onSubmit()">  
+                
+                <mat-form-field class="full-width">
+                    <mat-label>Имя</mat-label>
+                    <input type="text" matInput  placeholder="Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && getControls.name.errors }">
+                    <mat-error *ngIf="getControls.name.errors?.required">имя не заполнено</mat-error>
+                </mat-form-field>
+                <br>
+        
+           </form>
+
+           <div class="align">
+                <input 
+                type="file"
+                class="file-input"
+                accept="image/x-png,image/gif,image/jpeg"
+                (change)="onFileSelected($event)"
+                #fileUpload>
+        
+                <div class="file-upload">
+                    <button mat-mini-fab color="primary" class="upload-btn"
+                    (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <span>
+                        {{fileName || "файл еще не загружен"}}
+                    </span>
+                </div>
+            </div>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+           <button type="submit" mat-raised-button color="primary" [disabled]="loading" form="create">
+               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+               Создать</button>
+           <div class="error-backend">{{error}}</div>            
+        </mat-card-actions>
+
+     </mat-card>
+</div>

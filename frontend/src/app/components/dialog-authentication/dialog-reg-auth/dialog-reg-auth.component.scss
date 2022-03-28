@@ -1,0 +1,125 @@
+*{
+    font-family: 'Montserrat';
+    outline: none;
+}
+.mat-dialog{
+    padding: 0px;
+    border-radius: 8px;
+}
+.mat-tab{
+    border-radius: 8px;
+    font-size: 24px;
+}
+.btns{
+    display: flex;
+    align-items: center;
+    flex-direction: column;    margin: 0px;
+    justify-content: center;
+    margin-top: 37px;
+     .f{
+        width: 166px;
+        height: 40px;
+        line-height: inherit;
+    }
+}  
+form{
+    font-size: 18px;
+    text-align: center;
+    .line{
+        margin-bottom: 10px;
+        position: relative;
+        input{
+
+            border: 2px solid #CCCFD6;
+            border-radius: 43px;
+            height: 55px;
+            width: 400px;
+            padding-left: 15px;
+
+            ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #CCCFD6;
+                opacity: 1; /* Firefox */
+              }
+            :focus{
+              outline: none;
+            }
+        }
+        input:active{
+            border: none !important;
+        }
+    }
+    .pic-password{
+        background-image: url(../../../../img/pass-auth.png);
+        height: 20px;
+        width: 20px;
+        position:absolute;
+        top: 15px;
+    left: 18px;
+    }
+    .pic-email{
+      background-image: url(../../../../img/user-auth.png);
+      height: 20px;
+      width: 20px;
+      position:absolute;
+      top: 15px;
+      left: 18px;
+    }
+    .with-pic{
+      padding-left: 50px !important;
+    }
+}   
+
+
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    display: flex;
+    width: 50%;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: white;
+  }
+  
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 0px 35px;
+    border-top: none;
+  }
+  .tab{
+    display: flex;
+    background-color: #CCCFD6;
+  }
+  .forgot-pass{
+    color: #608263;
+    font-size: 15px;
+    text-align: right;
+    span:hover{
+      border-bottom: 1px solid #608263;
+    }
+
+  }
+.error-backend {
+    color: #842323;
+    margin-top: 7px;
+}
+
+.input-error{
+  color: #842323;
+}

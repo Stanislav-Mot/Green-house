@@ -1,0 +1,71 @@
+<button mat-raised-button color="primary" (click)="backClicked()" class="width">
+    на предидущую страницу
+  </button>
+<div>
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>{{order?.id}}</mat-card-title>
+      <mat-card-subtitle>Id</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header>
+        <mat-card-title>{{order?.placedAt}}</mat-card-title>
+        <mat-card-subtitle>Размещен</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>{{order?.status}}</mat-card-title>
+        <mat-card-subtitle>Статус</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title >
+            г. {{order?.address?.city}}, {{order?.address?.street}} {{order?.address?.build}}, кв. {{order?.address?.flat}}
+        </mat-card-title>
+        <mat-card-subtitle>Адрес </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+            <span *ngFor="let product of order?.products">
+                <span  (click)="navigatePageProduct(product.id)">{{product?.id}}, </span>
+              </span>
+        </mat-card-title>
+        <mat-card-subtitle>Товары</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header (click)="navigatePageUser(order.user.id)">
+        <mat-card-title>{{order?.user?.id}}</mat-card-title>
+        <mat-card-subtitle>Id пользователя</mat-card-subtitle>
+      </mat-card-header>
+  </mat-card>
+
+    <mat-horizontal-stepper>
+        <mat-step label="В обработке" state="phone">
+          <div>
+            <button mat-button matStepperNext (click)="updateStatus('В обработке')">Обновить</button>
+          </div>
+        </mat-step>
+
+        <mat-step label="Передан курьеру" state="chat" *ngIf="order?.status == 'Передан курьеру'" completed=true>
+          <div>
+            <button mat-button matStepperNext (click)="updateStatus('Передан курьеру')">Обновить</button>
+          </div>
+        </mat-step>
+        <mat-step label="Передан курьеру" state="chat" *ngIf="order?.status !== 'Передан курьеру'" >
+            <div>
+              <button mat-button matStepperNext (click)="updateStatus('Передан курьеру')">Обновить</button>
+            </div>
+          </mat-step>
+
+        <mat-step label="Доставлено" *ngIf="order?.status == 'Доставлено'" completed=true>
+          <button mat-button matStepperNext (click)="updateStatus('Доставлено')">Обновить</button>
+        </mat-step>
+        <mat-step label="Доставлено" *ngIf="order?.status !== 'Доставлено'">
+            <button mat-button matStepperNext (click)="updateStatus('Доставлено')">Обновить</button>
+          </mat-step>
+      
+        <!-- Icon overrides. -->
+        <ng-template matStepperIcon="phone">
+          <mat-icon>call_end</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="chat">
+          <mat-icon>forum</mat-icon>
+        </ng-template>
+      </mat-horizontal-stepper>
+</div>

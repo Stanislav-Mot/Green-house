@@ -1,0 +1,59 @@
+<main>
+    <div class="container-fluid">
+       <app-header></app-header>
+    </div>
+
+    <section class="header">
+        <h3>Корзина</h3>
+    </section>
+    <section class="popular">
+
+        <div class="item" *ngFor="let product of order?.products; let index = index">
+            <div class="numbering">{{index + 1}}.</div>
+            <div class="photo">
+                <img *ngIf="product.picture" [src]="PATH_S3_API + product.picture" [alt]="product.name">
+                <img *ngIf="!product?.picture" src="./img/product.svg"  alt="img-product.png">
+            </div>
+            <div class="params">
+                <div class="title">{{product.name}}</div>
+                <div class="desc-prod">⌀ 9 см / H 5 см</div>
+                <div *ngIf="product?.sale" class="proce-prod">{{product?.price - (product?.price / 100 * product?.sale)}}<span>{{product?.price}}</span></div>
+                <div *ngIf="!product?.sale" class="proce-prod">{{product?.price}}</div>          
+            </div>
+            <div class="counter"> 
+                <div class="main-radius"> 
+                        <div class="minus" (click)="minusProduct(product)">-</div>
+                        <div class="count">{{countProduct(product)}}</div>
+                        <div class="plus" (click)=plusProduct(product)>+</div>
+                </div>
+            </div>
+            <div class="price">{{product.totalPrice}}.</div>
+            <div class="delete" (click)="deleteFromCart(product)"></div>      
+        </div>
+
+        <div class="total-price">
+            <div class="pre-cost">Итого:</div>
+            <div class="cost">{{order?.totalPrice}} руб.</div>
+        </div>
+        <div class="send">
+            <button class="shop-btn" (click)=sendOrder()>Оформить Заказ</button>
+        </div>
+    </section>
+    <footer>
+        <img class="logo-max" src="img/logo.svg">
+        <img class="logo-min" src="./img/logo-min.svg" >
+        <div class="mb-f">г. Минск, ул. Притыцкого, д. 29, ТРЦ "Тивали"</div>
+        <div><a href="tel:+375443944343">+375 (44) 394-43-43</a></div>
+        <div><a href="mailto:green.house@zakaz.by">green.house@zakaz.by</a></div>
+
+        <div class="footer-pic"></div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        crossorigin="anonymous"></script>
+</main>

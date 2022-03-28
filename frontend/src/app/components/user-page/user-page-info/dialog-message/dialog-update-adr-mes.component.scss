@@ -1,0 +1,36 @@
+*{
+    font-family: 'Montserrat';
+    
+}
+
+.mat-dialog{
+    display: flex;
+    width: 400px;
+    height: 300px;
+    text-align: center;
+    font-size: 24px;
+    padding: 0px;
+    justify-content: space-around;
+    flex-direction: column;
+}
+.head-dialog-mess{
+    color: #608263;
+    font-family: 'Montserrat SemiBold';
+    margin-top: 68px;
+
+}
+.back-to{
+    color: #608263;
+    font-size: 15px;
+    font-family: 'Montserrat Regular';
+    margin-bottom: 23px;
+    span{
+        border-bottom: #608263 solid 1px;
+    }
+}
+.text-dialog-messv{
+    font-family: 'Montserrat Medium';
+}
+.mat-dialog-container{
+    padding: 0px !important;
+}

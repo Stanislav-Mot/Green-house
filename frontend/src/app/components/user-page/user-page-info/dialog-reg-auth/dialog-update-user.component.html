@@ -1,0 +1,41 @@
+<div mat-dialog-content class="mat-dialog">
+    
+  <div id="Reg" class="tabcontent">
+    <div>
+      <form id="reg" class="my-form" [formGroup]="updateForm" (ngSubmit)="updateAddress()">
+
+        <div class="line">
+          <input type="text" matInput  placeholder="город" formControlName="city">
+       </div>
+
+       <div class="line">
+        <input type="text" matInput  placeholder="улица" formControlName="street">
+      </div>
+
+      <div class="line">
+        <input type="text" matInput  placeholder="дом" formControlName="build">
+      </div>
+
+      <div class="line">
+        <input type="text" matInput  placeholder="подъезд" formControlName="entrance">
+
+      </div>
+
+      <div class="line">
+        <input type="text" matInput  placeholder="квартира" formControlName="flat"> 
+
+      </div>
+
+      </form>
+
+      <div class="btns">
+        <button class="f" type="submit" [disabled]="loading" form="reg" style="    line-height: 38px;">Отправить
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          <div class="error-backend">{{errorUpdate}}</div>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

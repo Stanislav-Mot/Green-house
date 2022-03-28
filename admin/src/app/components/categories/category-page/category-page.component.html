@@ -1,0 +1,52 @@
+<button mat-raised-button color="primary" (click)="backClicked()" class="width">
+    back to categories
+  </button>
+<mat-card class="example-card">
+
+    <mat-card-header class="align">
+        <form id="update" class="my-form" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+            <mat-form-field class="full-width">
+                <mat-label>Id</mat-label>
+                <input matInput formControlName="id" formControlName="id" >
+            </mat-form-field>
+            
+            <mat-form-field class="full-width">
+                <mat-label>Имя</mat-label>
+                <input type="text" matInput  placeholder="Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && getControls.name.errors }">
+                <mat-error *ngIf="getControls.name.errors?.required">имя не заполнено</mat-error>
+            </mat-form-field>
+
+            <mat-card-actions сlass="full-width">
+                <button type="submit" mat-raised-button color="primary" [disabled]="loading" form="update">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Обновить
+                </button>
+                <div class="error-backend">{{error}}</div>    
+            </mat-card-actions>
+        </form>
+
+    </mat-card-header>
+
+    <img *ngIf="category?.picture" mat-card-image [src]="category?.picture" alt="Photo of a category">
+
+    <mat-card-actions class="align">
+        <input 
+        type="file"
+        class="file-input"
+        accept="image/x-png,image/gif,image/jpeg"
+        (change)="onFileSelected($event)"
+        #fileUpload>
+
+        <div class="file-upload">
+            <button mat-mini-fab color="primary" class="upload-btn"
+            (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+            <span>
+                {{fileName || "Файл еще не загружен."}}
+            </span>
+        </div>
+
+    </mat-card-actions>
+  </mat-card>

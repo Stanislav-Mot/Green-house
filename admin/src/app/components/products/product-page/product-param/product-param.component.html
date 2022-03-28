@@ -1,0 +1,51 @@
+<mat-card class="example-card" class="prod-app-card">
+    <mat-card-header>
+      <mat-card-title >Params</mat-card-title>
+    </mat-card-header>
+  
+    <div  *ngFor="let param of params" class="desc-ell">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>id: {{param?.id}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+
+        <div></div>
+        <p> текст: {{param?.text}} <br>
+          проценты:{{param?.percent}}
+        </p>      
+      </mat-card-content>
+    <mat-card-actions>
+  
+        <form [attr.id]="param.id" class="my-form" [formGroup]="updateForm" (ngSubmit)="updateParam(param)">  
+  
+            <mat-expansion-panel style="text-align: center;">
+              <mat-expansion-panel-header >
+                <mat-panel-title>
+                  Обновить
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+        
+              <mat-form-field>
+                <mat-label>Текст</mat-label>
+                <input matInput type="text" formControlName="text" [ngClass]="{ 'is-invalid': submitted && getControls.text.errors }">
+                <mat-error *ngIf="getControls.text.errors?.required">текст не заполнен</mat-error>
+              </mat-form-field>
+        
+              <mat-form-field>
+                <mat-label>Проценты</mat-label>
+                <input matInput type="text" formControlName="percent" [ngClass]="{ 'is-invalid': submitted && getControls.percent?.errors }">
+                <mat-error *ngIf="getControls.percent?.errors?.required">проценты не заполнены</mat-error>
+              </mat-form-field>
+        
+              <br>
+              <button mat-button>Обновить</button>
+            </mat-expansion-panel>
+        
+        </form>
+
+      </mat-card-actions>
+  
+    </div>
+  </mat-card>

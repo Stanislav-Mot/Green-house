@@ -1,0 +1,74 @@
+<main>
+    <div class="container-fluid">
+       <app-header></app-header>
+    </div>
+
+    <section class="header">
+        <h3>Личный кабинет</h3>
+    </section>
+    <section class="popular">
+        <div class="menu">
+                <div class="wrap">
+                    <div class="str" routerLink='/user'>Персональные данные</div>
+                    <div class="str active">История заказов</div>
+                    <div class="str" routerLink='/user/favorite'>Избранное</div>
+                    <div class="str" (click)="logout();">Выйти</div>
+                </div>
+        </div>
+        <div class="info">
+
+            <div class="order" *ngFor="let order of orders; let i = index">
+                <div *ngIf="order.status == 'Доставлено'" class="finished-pic"></div>
+                <div class="items">
+                    <ng-container *ngFor="let prod of order.products">
+                        {{prod.name}} ( 1шт.), 
+                        <!-- Цереус (1 шт.), Агава (2 шт.) -->
+                    </ng-container>
+                    <div class="price">
+                        {{order.totalPrice}} руб.
+                    </div>
+                </div>
+                <div class="data">
+                    <!-- 13 марта 2021 г. -->
+                    {{order.placedAt}}
+                </div>
+                <div class="address">
+                    г. {{order.address.city}}, {{order.address.street}} {{order.address.build}}, кв. {{order.address.flat}}
+                </div>
+                <div class="status-box">
+                    <div class="status-line">
+                        <div [ngClass]="{
+                            'status-left': order.status == 'В обработке',
+                            'status-middle': order.status == 'Передан курьеру',
+                            'status-right': order.status == 'Доставлено' }"></div>
+                    </div>
+                    <div class="wrap-spans">
+                        
+                        <span class="span-left" [ngClass]="{'active': order.status === 'В обработке'}">В обработке</span>
+                        <span class="span-middle" [ngClass]="{'active': order.status === 'Передан курьеру'}">Передан курьеру</span>
+                        <span class="span-right" [ngClass]="{'active': order.status === 'Доставлено'}">Доставлено</span>
+                    </div>
+                </div>
+                <div class="item-id">id{{order.id}}</div>
+            </div>
+
+        </div>
+    </section>
+    <footer>
+        <img class="logo-max" src="img/logo.svg">
+        <img class="logo-min" src="./img/logo-min.svg" >
+        <div class="mb-f">г. Минск, ул. Притыцкого, д. 29, ТРЦ "Тивали"</div>
+        <div><a href="tel:+375443944343">+375 (44) 394-43-43</a></div>
+        <div><a href="mailto:green.house@zakaz.by">green.house@zakaz.by</a></div>
+
+        <div class="footer-pic"></div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        crossorigin="anonymous"></script>
+</main>

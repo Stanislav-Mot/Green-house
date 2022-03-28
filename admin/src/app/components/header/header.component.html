@@ -1,0 +1,49 @@
+<div *ngIf="user" >
+  <mat-toolbar class="toolbar-top">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <span class="material-icons">
+          menu
+          </span>
+      </button>
+      <span>GREEN HOUSE</span>
+  </mat-toolbar>
+</div>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+      <button mat-button routerLink="/products">
+        <span class="material-icons">
+          local_grocery_store
+        </span>
+        Товары</button><br>
+
+      <button mat-button routerLink="/categories">
+        <span class="material-icons">
+          category
+        </span>
+        Категории</button><br>
+
+        <button mat-button routerLink="/orders">
+          <span class="material-icons">
+            add_shopping_cart
+          </span>
+          Заказы</button><br>
+
+      <button mat-button routerLink="/users">
+        <span class="material-icons">
+          supervised_user_circle
+        </span>
+        Пользователи</button><br>
+
+      <button mat-button (click)="logout(); drawer.close()">
+        <span class="material-icons">
+          exit_to_app
+        </span>
+        Выход</button><br>
+    </mat-drawer>
+
+  <mat-drawer-content class="example-sidenav-content">  
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+
+</mat-drawer-container>

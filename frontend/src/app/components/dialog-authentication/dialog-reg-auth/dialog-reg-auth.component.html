@@ -1,0 +1,79 @@
+<div mat-dialog-content class="mat-dialog">
+
+  <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'Reg')">Регистрация</button>
+    <button class="tablinks active" onclick="openCity(event, 'Auth')">Войти</button>
+  </div>
+  <div class="space"></div>
+    
+  <div id="Reg" class="tabcontent">
+    <div>
+      <form id="reg" class="my-form" [formGroup]="regForm" (ngSubmit)="regSubmit()">
+
+        <div class="line">
+          <input type="text" matInput  placeholder="Имя" formControlName="first_name">
+       </div>
+
+       <div class="line">
+        <input type="text" matInput  placeholder="Фамилия" formControlName="last_name">
+      </div>
+
+      <div class="line">
+        <input type="text" matInput  placeholder="Телефон" formControlName="phone">
+      </div>
+
+      <div class="line">
+        <input type="email" matInput  placeholder="Email" formControlName="email">
+        <!-- <div class="input-error" *ngIf="submitted && getControls.email.errors?.required">Введите email</div> -->
+
+      </div>
+
+      <div class="line">
+        <input type="password" matInput  placeholder="Пароль" formControlName="password"> 
+        <!-- <div class="input-error" *ngIf="submitted && getControls.email.errors?.required">Введите пароль</div> -->
+
+      </div>
+
+      </form>
+
+      <div class="btns">
+        <button class="f" type="submit" [disabled]="loading" form="reg" style="    line-height: 38px;">Отправить
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          <div class="error-backend">{{errorReg}}</div>
+        </button>
+      </div>
+
+    </div>
+  </div>
+  
+  <div id="Auth" class="tabcontent" style="display: block;">
+    <div>
+      <form id="auth" class="my-form" [formGroup]="authForm" (ngSubmit)="authSubmit()">
+
+        <div class="line">
+          <div class="pic-email"></div>
+          <input class="with-pic" type="email" matInput  placeholder="Email" formControlName="email">
+          <div class="input-error" *ngIf="submitted && getControls.email.errors?.required">Email не должен быть пустым</div>
+       </div>
+
+       <div class="line">
+        <div class="pic-password"></div>
+        <input class="with-pic" type="password" matInput  placeholder="Пароль" formControlName="password">
+        <div class="input-error" *ngIf="submitted && getControls.password.errors?.required">Пароль не должен быть пустым</div>
+      </div>
+
+      </form>
+
+      <div class="forgot-pass"><span>Забыли пароль?</span></div>
+      
+      <div class="btns">
+        <button class="f" type="submit" [disabled]="loading" form="auth">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Войти
+        </button>
+        <div class="error-backend">{{errorAuth}}</div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<main>
+            <div class="container-fluid">
+                <app-header></app-header>
+            </div>
+        
+        <section class="search">
+            <h3>Каталог</h3>
+            <div class="srch-wp">
+                <div class="srch-inpt">
+                    <img src="./img/search.svg">
+                    <input type="text" style="outline: none;" />
+                </div>
+                <img class="params" src="img/searchtool.svg">
+            </div>
+            <div class="sort">
+                <span class="main-txt">Сортировать:</span> 
+                <span class="sort-param active top">по названию</span>
+                <span class="sort-param">по цене</span>
+                <span class="sort-param active btm">скидка</span>
+                <span class="sort-param">сначала новинки</span>
+            </div>
+        </section>   
+
+
+        
+        <div class="main-content-catalog">
+            <div>
+                <ul class="list-catalog">
+                    <li class="active">Все растения</li>
+                    <li>Бонсай</li>
+                    <li>Декоративно-лиственные</li>
+                    <li>Драцены</li>
+                    <li>Суккуленты & Кактусы</li>
+                    <li>Цитрусовые</li>
+                    <li>Грунт</li>
+                    <li>Горшки & Кашпо</li>
+                </ul>
+            </div>
+
+            <section class="popular catalog-p popular-carousel" >
+
+                <ng-container *ngFor="let product of showsproduct">
+
+                        <div class="item">
+                            <!-- <div class="sale">
+                                -45%
+                            </div> -->
+                            <div class="photo" (click)="navigateProductPage(product.id)">
+                                <img *ngIf="product.picture" [src]="PATH_S3_API + product.picture" [alt]="product.name">
+                                <img *ngIf="!product.picture" src="./img/product.svg" alt="">
+                            </div>
+                            <div class="title">{{product.name}}</div>
+                            <div class="desc-prod">⌀ 9 см / H 5 см</div>
+
+                            <div *ngIf="product.sale" class="proce-prod">{{product.price - (product.price / 100 * product.sale)}}<span>{{product.price}}</span></div>
+                            <div *ngIf="!product.sale" class="proce-prod">{{product.price}}</div>
+
+                            <div *ngIf="user" class="btns">
+                                <button *ngIf="cartProducts?.indexOf(product.id) == -1" class="shop-btn" (click)="addToCart(product.id)">В корзину</button>
+                                <button *ngIf="!(cartProducts?.indexOf(product.id) == -1)" class="shop-btn" (click)="deleteFromCart(product.id)">Из корзины</button>
+
+                                <button *ngIf="favoriteProducts?.indexOf(product.id) == -1" class="like-btn" (click)="addToFavorite(product.id)">
+                                    <img class="unfilled" src="./img/like.svg">
+                                    <img class="filled" src="./img/like-filled.svg">
+                                </button>
+                                <button *ngIf="!(favoriteProducts?.indexOf(product.id) == -1)" class="like-btn filled" (click)="deleteFromFavorite(product.id)">
+                                    <img class="unfilled" src="./img/like.svg">
+                                    <img class="filled" src="./img/like-filled.svg">
+                                </button>
+                            </div>
+
+                            <div *ngIf="!user"  class="btns">
+                                <button class="shop-btn" (click)="regAuth()">В корзину</button>
+
+                                <button class="like-btn" (click)="regAuth()">
+                                    <img class="unfilled" src="./img/like.svg">
+                                    <img class="filled" src="./img/like-filled.svg">
+                                </button>
+                            
+                            </div>
+                        </div>
+
+                </ng-container>
+            </section>
+        </div>
+
+        <section class="pagination">
+            <span class="cor" (click)="previous()">
+                <img src="./img/cor.svg">
+            </span> 
+            <span class="active">{{numberOfPage}}/</span>
+            <span class="low">{{countOfPage}}</span>
+             <span class="cor" (click)="next()">
+                <img src="./img/cor2.svg">
+             </span>
+        </section>
+
+
+        <footer>
+            <img class="logo-max" src="img/logo.svg">
+            <img class="logo-min" src="./img/logo-min.svg" >
+            <div class="mb-f">г. Минск, ул. Притыцкого, д. 29, ТРЦ "Тивали"</div>
+            <div><a href="tel:+375443944343" style="text-decoration: none;">+375 (44) 394-43-43</a></div>
+            <div><a href="mailto:green.house@zakaz.by" style="text-decoration: none;">green.house@zakaz.by</a></div>
+            <div class="footer-pic"></div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+            integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+            crossorigin="anonymous"></script>
+    </main>

@@ -1,0 +1,47 @@
+<button mat-raised-button color="primary" (click)="backClicked()" class="width">
+  к предидущей странице
+</button>
+<div class="parent">
+    <mat-card class="my-card block" style="text-align: center;">
+        <mat-card-content >
+           <form id="create" class="my-form" [formGroup]="createForm" (ngSubmit)="onSubmit()">  
+                
+                <mat-form-field class="full-width">
+                    <mat-label>Имя</mat-label>
+                    <input type="text" matInput  placeholder="Name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && getControls.name.errors }">
+                    <mat-error *ngIf="getControls.name.errors?.required">имя не заполнено</mat-error>
+                </mat-form-field>
+                <br>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Цена</mat-label>
+                    <input type="number" matInput  placeholder="Price" formControlName="price" [ngClass]="{ 'is-invalid': submitted && getControls.price.errors }">
+                    <mat-error *ngIf="getControls.price.errors?.required">цена не заполнена</mat-error>
+                </mat-form-field>
+                <br>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Скидка</mat-label>
+                    <input type="number" matInput  placeholder="Sale" formControlName="sale">
+                </mat-form-field>
+                <br>
+
+                    <mat-form-field appearance="fill">
+                      <mat-label>Категория</mat-label>
+                      <mat-select formControlName="category">
+                        <mat-option *ngFor="let category of categories" [value]="category">
+                          {{category.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+           </form>
+        </mat-card-content>
+        <mat-card-actions>
+           <button type="submit" mat-raised-button color="primary" [disabled]="loading" form="create">
+               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+               Создать</button>
+           <div class="error-backend">{{error}}</div>            
+        </mat-card-actions>
+     </mat-card>
+</div>

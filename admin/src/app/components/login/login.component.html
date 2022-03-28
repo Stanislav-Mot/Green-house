@@ -1,0 +1,28 @@
+<div class="parent">
+    <mat-card class="my-card block" style="text-align: center;">
+        <mat-card-content >
+           <form id="loga" class="my-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">  
+
+              <mat-form-field class="full-width">
+                 <mat-label>Email</mat-label>
+                 <input type="email" matInput  placeholder="pat@example.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted && getControls.email.errors }">
+                 <!-- <mat-error *ngIf="getControls.email.errors?.email">incorrect email</mat-error> -->
+                 <mat-error *ngIf="getControls.email.errors?.required">email не заполнен</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="full-width">
+                 <mat-label>Пароль</mat-label>
+                 <input type="password" matInput  placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && getControls.password.errors }">
+                 <mat-error *ngIf="getControls.password.errors?.required">пароль не заполнен</mat-error>
+              </mat-form-field>
+               
+           </form>
+        </mat-card-content>
+        <mat-card-actions>
+           <button type="submit" mat-raised-button color="primary" [disabled]="loading" form="loga">
+               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+               Вход</button>
+           <div class="error-backend">{{error}}</div>
+        </mat-card-actions>
+     </mat-card>
+</div>

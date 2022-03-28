@@ -1,0 +1,56 @@
+<mat-card class="example-card" class="prod-app-card">
+    <mat-card-header>
+      <mat-card-title >Картинка</mat-card-title>
+    </mat-card-header>
+
+    <div *ngIf="product?.picture">
+      <br>
+      <img mat-card-image [src]="product?.picture" alt="Photo of a Shiba Inu">
+
+      <mat-card-content>
+        Url: <br>
+        <p>{{product?.picture}}</p>
+      </mat-card-content>
+          
+      <mat-card-actions>
+        <input 
+        type="file"
+        class="file-input"
+        accept="image/x-png,image/gif,image/jpeg"
+        (change)="onFileSelected($event)"
+        #fileUpload>
+
+        <div class="file-upload">
+            <button mat-mini-fab color="primary" class="upload-btn"
+            (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+            <span>
+                {{fileName || "Обновить картинку."}}
+            </span>
+        </div>
+      </mat-card-actions>
+    </div>
+
+    <div *ngIf="!product?.picture">
+      <mat-card-actions>
+        <input 
+        type="file"
+        class="file-input"
+        accept="image/x-png,image/gif,image/jpeg"
+        (change)="onFileSelected($event)"
+        #fileUpload>
+
+        <div class="file-upload">
+            <button mat-mini-fab color="primary" class="upload-btn"
+            (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+            <span>
+                {{fileName || "Добавить картинку."}}
+            </span>
+        </div>
+      </mat-card-actions>
+    </div>
+    
+  </mat-card>

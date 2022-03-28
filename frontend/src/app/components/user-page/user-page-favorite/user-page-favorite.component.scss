@@ -1,0 +1,113 @@
+*{
+    font-family: 'Montserrat';
+}
+.header{
+    h3{
+        text-align: center;
+        font-family: 'Montserrat';
+        font-size: 48px;
+        margin-bottom: 100px;
+        margin-top: 30px;
+    }
+}
+footer {
+    position: relative;
+    .footer-pic{
+        background-image: url(../../../../img/footer-user-favorite.png);
+        height: 597px;
+        width: 464px;
+        display: block;
+        position: absolute;
+        top: -298px;
+        left: 0px;
+    }
+    a{
+        text-decoration: none;
+    }
+}
+.popular{
+    margin-bottom: 160px;
+    margin-top: 100px;
+    margin-right: 195px;
+    margin-left: 195px;
+    display: flex;
+    .menu{
+        max-width: 425px;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        font-size: 24px;
+        font-family: 'Montserrat Regular';
+        .wrap{
+            .str{
+                color: black;
+            }
+            .active{
+                color: #608263;
+                text-decoration: underline #608263;
+            }
+        }
+    }
+    .info{
+        max-width: 1132px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .item{
+        font-size: 24px;
+        font-family: 'Montserrat';
+        border: solid 1px #CCCFD6;
+        padding: 15px 40px;
+        margin-bottom: 45px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        .remove{
+            position: absolute;
+            right: 40px;
+            top: 35px;
+            text-align: right;
+            text-decoration: underline #CCCFD6;
+            background-image: url(../../../../img/x.png);
+            width: 32px;
+            height: 32px;
+        }
+        .photo{
+            img{
+                max-height: 180px;
+            }
+            border: 1px solid #CCCFD6;
+            padding: 18px;
+            display: inline-block;
+        }   
+        .btns{
+            display: flex;          
+            margin: 0px;
+            justify-content: center;
+            width: 100%;
+            max-width: 560px;
+             .f{
+                width: 230px;
+                height: 58px;
+                margin-right: 17px;
+            }
+        }   
+        .description{
+            margin-left: 45px;
+            display: inline-block;
+            font-size: 24px;
+            .name{
+                font-family: "SemiBold";
+                color: #000;
+            }
+            .param{
+                font-family: "Regular";
+            }
+            .price{
+                font-family: "SemiBold";
+                color: #608263;
+            }
+        }  
+    }
+}

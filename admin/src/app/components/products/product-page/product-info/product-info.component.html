@@ -1,0 +1,29 @@
+<mat-card class="example-card" class="prod-app-card">
+    <mat-card-header style="justify-content: center;">
+        <mat-card-title >Информация</mat-card-title>
+      </mat-card-header>
+    <mat-card-header>
+      <mat-card-title>{{product?.id}}</mat-card-title>
+      <mat-card-subtitle>Id</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header>
+        <mat-card-title>{{product?.name}}</mat-card-title>
+        <mat-card-subtitle>Имя</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header>
+        <mat-card-title>{{product?.price}}</mat-card-title>
+        <mat-card-subtitle>Цена</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header>
+        <mat-card-title>{{product?.sale}}</mat-card-title>
+        <mat-card-subtitle>Скидка</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header>
+        <mat-card-title>{{product?.placedAt}}</mat-card-title>
+        <mat-card-subtitle>Размещен</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header>
+        <mat-card-title (click)="navigateCategoryPage(product?.category?.id)">{{product?.category?.name}}</mat-card-title>
+        <mat-card-subtitle>Категория</mat-card-subtitle>
+    </mat-card-header>
+</mat-card>

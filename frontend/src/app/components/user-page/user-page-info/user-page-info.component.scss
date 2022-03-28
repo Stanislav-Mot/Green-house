@@ -1,0 +1,122 @@
+*{
+    font-family: 'Montserrat';
+}
+.header{
+    h3{
+        text-align: center;
+        font-family: 'Montserrat';
+        font-size: 48px;
+        margin-bottom: 100px;
+        margin-top: 30px;
+    }
+}
+footer {
+    position: relative;
+    .footer-pic{
+        background-image: url(../../../../img/footer-user-info.png);
+        height: 403px;
+        width: 430px;
+        display: block;
+        position: absolute;
+        top: -100px;
+        right: 0px;
+    }
+    a{
+        text-decoration: none;
+    }
+}
+.popular{
+    margin-bottom: 160px;
+    margin-top: 100px;
+    margin-right: 195px;
+    margin-left: 195px;
+    display: flex;
+    .menu{
+        max-width: 425px;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        font-size: 24px;
+        font-family: 'Montserrat Regular';
+        .wrap{
+            .str{
+                color: black;
+            }
+            .active{
+                color: #608263;
+                text-decoration: underline #608263;
+            }
+        }
+    }
+    .info{
+        max-width: 1132px;
+        width: 100%;
+        border: solid 1px #CCCFD6;
+        display: flex;
+        padding: 40px;
+        flex-direction: column;
+        position: relative;
+        .update{
+            position: absolute;
+            right: 73px;
+            top: 35px;
+            text-align: right;
+            color: #CCCFD6;
+            font-size: 24px;
+            text-decoration: underline #CCCFD6;
+            span{
+                background-image: url(../../../../img/rewrite.png);
+                height: 22px;
+                width: 22px;
+                display: flex;
+                position: absolute;
+                right: -31px;
+                top: 9px;
+            }
+        }
+        .line{
+            font-size: 24px;
+            display: flex;
+            span{
+                color: #000000;
+                font-weight: bold;
+                // font-weight: bold;
+                font-family: 'Montserrat SemiBold';
+                text-align: right;
+                width: 140px;
+                margin-right: 45px;
+            }
+            .pad1{
+                margin-bottom: 20px;
+            };
+        }
+    }
+}
+.addresses{
+    display: flex;
+    .address{
+        padding: 20px;
+        border: solid 4px #608263;
+        height: 253px;
+        width: 420px;
+        margin-right: 12px;
+        .line{
+            span{
+                margin-right: 20px;
+                width: 129px;
+            }
+            .pad{
+                margin-bottom: 5px;
+            }
+        }
+    }   
+    .disabele{
+        color: #CCCFD6;
+        border: 1px solid #CCCFD6;
+        span{
+            color: #CCCFD6 !important; 
+        }
+    }
+
+ 
+}

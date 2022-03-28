@@ -1,0 +1,29 @@
+footer {
+    position: relative;
+    .footer-pic{
+        background-image: url(../../../img/footer-catalog.png);
+        height: 434px;
+        width: 685px;
+        display: block;
+        position: absolute;
+        top: -132px;
+        right: 0px;
+    }
+    a{
+        text-decoration: none;
+    }
+}
+
+.popular-carousel{
+    flex-wrap: wrap;
+    padding: 0px;
+    justify-content: flex-start;
+    .item{
+        margin-right: 30px;
+        max-width: 354px;
+        margin-bottom: 120px;
+    }
+}
+.catalog-p{
+    width: 78%;
+}

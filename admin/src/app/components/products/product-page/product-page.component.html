@@ -1,0 +1,25 @@
+<button mat-raised-button color="primary" (click)="backClicked()" class="width">
+  На предидущую страницу
+</button>
+
+<div class="content">
+  <div  fxLayout="row" fxLayoutGap="16px" grid>
+
+    <div fxFlex="32%" fxFlex.md="50">
+      <app-product-info [product]="product"></app-product-info>
+    </div>
+
+    <div fxFlex="32%" >
+      <app-product-image [product]="product"></app-product-image>
+    </div>
+
+    <div fxFlex="32%" >
+      <app-product-description [product]="product"></app-product-description>
+    </div>
+
+    <div fxFlex="32%" >
+      <app-product-param [product]="product"></app-product-param>
+    </div>
+  </div>
+
+</div>

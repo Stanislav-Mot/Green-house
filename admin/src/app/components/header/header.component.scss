@@ -1,0 +1,27 @@
+
+  .example-container {
+    width: 100%;
+    height: 100vh;  }
+  
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+    padding-top: 5%;
+  }
+  .example-sidenav button{
+    width: 100%;
+    text-align: left;
+    }
+  mat-toolbar{
+    position: absolute;
+    height: 5%;
+    width: 100%;
+    z-index: 100;
+    border-bottom: solid 1px rgba(0,0,0,.12);;
+  }

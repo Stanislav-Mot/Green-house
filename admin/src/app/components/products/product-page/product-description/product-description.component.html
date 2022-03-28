@@ -1,0 +1,89 @@
+<mat-card class="example-card" class="prod-app-card">
+  <mat-card-header>
+    <mat-card-title >Описания</mat-card-title>
+  </mat-card-header>
+
+  <form id="create" class="my-form" [formGroup]="createForm" (ngSubmit)="onSubmit()">  
+
+    <mat-expansion-panel style="text-align: center;">
+      <mat-expansion-panel-header >
+        <mat-panel-title>
+          Создать новое
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <mat-label>Заголовок</mat-label>
+        <input matInput type="text" formControlName="heading" [ngClass]="{ 'is-invalid': submitted && getControls.heading.errors }">
+        <mat-error *ngIf="getControls.heading.errors?.required">заголовок не заполнен</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Текст</mat-label>
+        <input matInput type="text" formControlName="text" [ngClass]="{ 'is-invalid': submitted && getControls.text.errors }">
+        <mat-error *ngIf="getControls.text.errors?.required">текст не заполнен</mat-error>
+      </mat-form-field>
+
+      <br>
+      <button mat-button>Добавить</button>
+    </mat-expansion-panel>
+
+</form>
+
+  <div  *ngFor="let description of descriptions" class="desc-ell">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>id: {{description?.id}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        заголовок:
+        {{description?.heading}}
+      </p>
+      <p>
+        текст:
+        {{description?.text}}
+      </p>
+    </mat-card-content>
+  <mat-card-actions>
+
+      <button mat-button (click)="togglePanel()" mat-mini-fab color="primary" >
+        <span class="material-icons">file_upload</span>
+      </button>
+      <button mat-button (click)="deleteDescription(description)" mat-mini-fab color="primary" class="upload-btn" style="float: right;">
+        <span class="material-icons">delete_forever</span>
+      </button>
+    </mat-card-actions>
+    <mat-card-actions>
+  
+      <form [attr.id]="description.id" class="my-form" [formGroup]="updateForm" (ngSubmit)="updateDescription(description)">  
+
+          <mat-expansion-panel style="text-align: center;" [expanded]="panelOpenState">
+            <mat-expansion-panel-header style="display: none;">
+              <mat-panel-title>
+                Update
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+      
+            <mat-form-field>
+              <mat-label>Заголовок</mat-label>
+              <input matInput type="text" formControlName="heading" [ngClass]="{ 'is-invalid': submitted && getControls.heading.errors }">
+              <mat-error *ngIf="getControls.heading.errors?.required">заголовк не заполнен</mat-error>
+            </mat-form-field>
+      
+            <mat-form-field>
+              <mat-label>Текст</mat-label>
+              <input matInput type="text" formControlName="text" [ngClass]="{ 'is-invalid': submitted && getControls.text?.errors }">
+              <mat-error *ngIf="getControls.text?.errors?.required">проценты не заполнены</mat-error>
+            </mat-form-field>
+      
+            <br>
+            <button mat-button>Обновить</button>
+          </mat-expansion-panel>
+      
+      </form>
+
+    </mat-card-actions>
+
+  </div>
+</mat-card>

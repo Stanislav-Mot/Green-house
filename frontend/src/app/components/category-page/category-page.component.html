@@ -1,0 +1,134 @@
+<main>
+    <div class="container-fluid">
+        <app-header></app-header>
+    </div>
+
+<section class="search">
+    <h3>Каталог</h3>
+    <div class="srch-wp">
+        <div class="srch-inpt">
+            <img src="./img/search.svg">
+            <input type="text" />
+        </div>
+        <img class="params" src="img/searchtool.svg">
+    </div>
+    <div class="sort">
+        <span class="main-txt">Сортировать:</span> 
+        <span class="sort-param active top">по названию</span>
+        <span class="sort-param">по цене</span>
+        <span class="sort-param active btm">скидка</span>
+        <span class="sort-param">сначала новинки</span>
+    </div>
+</section>   
+
+<section class="catalog-container">
+    <div class="catalog-row" routerLink="/catalog">
+        <div class="catalog-page catalog-page-10">
+            <span>Все растения</span>
+        </div>
+    </div>
+    <div class="catalog-row-1" routerLink="/catalog">
+        <div class="catalog-page catalog-page-1">
+            <span>Декоративно-лиственные</span>
+        </div>
+        <div class="catalog-row-wp" routerLink="/catalog">
+            <div class="catalog-row-2">
+                <div class="catalog-page catalog-page-2">
+                    <span>Суккуленты</span>
+
+                </div>
+                <div class="catalog-page catalog-page-3" routerLink="/catalog">
+                    <span>Цитрусовые</span>
+                </div>
+            </div>
+            <div class="catalog-row-3">
+                <div class="catalog-page catalog-page-4" routerLink="/catalog"><span>Бонсай</span></div>
+                <div class="catalog-page catalog-page-5" routerLink="/catalog"><span>Драцены</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="catalog-row-4" routerLink="/catalog">
+        <div class="catalog-page catalog-page-6">
+            <span>Грунт</span>
+        </div>
+        <div class="catalog-page catalog-page-7" routerLink="/catalog">
+            <span>Горшки<br> Кашпо</span>
+        </div>
+    </div>
+</section>
+<footer>
+    <img class="logo-max" src="img/logo.svg">
+    <img class="logo-min" src="./img/logo-min.svg" >
+    <div class="mb-f">г. Минск, ул. Притыцкого, д. 29, ТРЦ "Тивали"</div>
+    <div><a href="tel:+375443944343">+375 (44) 394-43-43</a></div>
+    <div><a href="mailto:green.house@zakaz.by">green.house@zakaz.by</a></div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+    integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+    crossorigin="anonymous"></script>
+<script>
+
+    var owlOptions = {
+        loop: true,
+        margin: 10,
+        nav: false,
+        stagePadding: 75,
+        responsive: {
+            320: {
+                items: 1,
+                stagePadding: 0
+            },
+            580: {
+                item: 1,
+                stagePadding: 0
+            },
+            640: {
+                items: 2,
+                stagePadding: 0
+            },
+            900: {
+                items: 2
+            },
+            1240: {
+                items: 4
+            },
+        }
+    };
+
+
+
+
+    var owl = $('.owl-carousel');
+
+    if ($(window).width() < 1560) {
+        var owlActive = owl.owlCarousel(owlOptions);
+    } else {
+        owl.addClass('off');
+    }
+
+    $(window).resize(function () {
+        if ($(window).width() < 1560) {
+            if ($('.owl-carousel').hasClass('off')) {
+                var owlActive = owl.owlCarousel(owlOptions);
+                owl.removeClass('off');
+            }
+        } else {
+            if (!$('.owl-carousel').hasClass('off')) {
+                owl.addClass('off').trigger('destroy.owl.carousel');
+                owl.find('.owl-stage-outer').children(':eq(0)').unwrap();
+            }
+        }
+    });
+
+    $('#menu-btn').click(e => {
+        
+    })
+
+
+</script>
+</main>

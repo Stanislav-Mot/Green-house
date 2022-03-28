@@ -1,0 +1,145 @@
+*{
+    font-family: 'Montserrat';
+}
+.header{
+    h3{
+        text-align: center;
+        font-family: 'Montserrat';
+        font-size: 48px;
+        margin-bottom: 100px;
+        margin-top: 30px;
+    }
+}
+footer {
+    position: relative;
+    .footer-pic{
+        background-image: url(../../../../img/footer-user-history.png);
+        height: 601px;
+        width: 515px;
+        display: block;
+        position: absolute;
+        top: -299px;
+        left: 0px;
+    }
+    a{
+        text-decoration: none;
+    }
+}
+.popular{
+    margin-bottom: 160px;
+    margin-top: 100px;
+    margin-right: 195px;
+    margin-left: 195px;
+    display: flex;
+    .menu{
+        max-width: 425px;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        font-size: 24px;
+        font-family: 'Montserrat Regular';
+        .wrap{
+            .str{
+                color: black;
+            }
+            .active{
+                color: #608263;
+                text-decoration: underline #608263;
+            }
+        }
+    }
+    .info{
+        max-width: 1132px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .order{
+        font-size: 24px;
+        font-family: 'Montserrat';
+        border: solid 1px #CCCFD6;
+        padding: 35px 40px;
+        margin-bottom: 45px;
+        position: relative;
+        .item-id{
+            position: absolute;
+            right: 40px;
+            top: 35px;
+            text-align: right;
+            color: #CCCFD6;
+            font-size: 24px;
+            text-decoration: underline #CCCFD6;
+        }
+        .finished-pic{
+            height: 62px;
+            width: 62px;
+            position: absolute;
+            background-image: url(../../../../img/finished-pic.png);
+            left: -78px;
+            top: 115px;
+        }
+        .items{
+            font-weight:bolder;
+            display: flex;
+            margin-bottom: 13px;
+
+            .price{
+                margin-left:45px;
+                color: #608263;
+            }
+        }
+        .data{
+            margin-bottom: 13px;
+        }
+        .address{
+            margin-bottom: 13px;
+        }
+        .status-box{
+            margin-top: 50px;
+            color: #CCCFD6;
+            .wrap-spans{
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-between;
+                .span-left{
+                    text-align: left;
+                }
+                .span-middle{
+                    text-align: center;
+                }
+                .span-right{
+                    text-align: right;
+                }
+                .active{
+                    color: #000000;
+                }
+            }
+
+            .status-line{
+                background-color: #C4C4C4;
+                width: 100%;
+                margin-bottom: 15px;
+                height: 7px;
+                .status-left{
+                    background-color: #608263;
+                    width: 15%;
+                    height: 7px;
+                }
+                .status-middle{
+                    background-color: #608263;
+                    width: 50%;
+                    height: 7px;
+                }
+                .status-right{
+                    background-color: #608263;
+                    width: 100%;
+                    height: 7px;
+                }
+
+            }
+
+        }
+    }
+}
+

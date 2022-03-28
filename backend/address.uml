@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.address</OriginalElement>
+  <nodes>
+    <node x="831.0000000000001" y="137.5">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.order_products</node>
+    <node x="49.25000000000006" y="734.75">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.order_s</node>
+    <node x="534.3531746031747" y="721.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_param</node>
+    <node x="262.50000000000006" y="0.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.cart</node>
+    <node x="643.75" y="136.25">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_addresses</node>
+    <node x="285.62500000000006" y="754.5">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s_addresses</node>
+    <node x="177.95039682539687" y="914.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.order_s_products</node>
+    <node x="619.375" y="452.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product</node>
+    <node x="-136.25" y="292.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.spring_session_attributes</node>
+    <node x="378.25" y="270.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s_favourite_products</node>
+    <node x="156.97222222222217" y="127.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s</node>
+    <node x="665.125" y="278.75">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.category</node>
+    <node x="391.5" y="136.25">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_favourite_products</node>
+    <node x="41.50000000000006" y="518.5">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_role</node>
+    <node x="201.50000000000006" y="463.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.address</node>
+    <node x="717.375" y="914.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_product_descriptions</node>
+    <node x="903.6031746031747" y="565.75">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.cart_products</node>
+    <node x="465.62500000000006" y="914.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_product_params</node>
+    <node x="697.3531746031747" y="732.0">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_description</node>
+    <node x="-125.0" y="6.25">85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.spring_session</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_description" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product">
+      <point x="0.0" y="-60.5" />
+      <point x="789.3531746031747" y="701.0" />
+      <point x="716.2083333333335" y="701.0" />
+      <point x="13.833333333333371" y="104.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.cart_products" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.cart">
+      <point x="36.25" y="-38.0" />
+      <point x="1011.1031746031747" y="102.0" />
+      <point x="359.1666666666667" y="102.0" />
+      <point x="38.66666666666663" y="38.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.category">
+      <point x="41.5" y="-104.5" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_product_descriptions" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_description">
+      <point x="-64.0" y="-38.0" />
+      <point x="781.375" y="889.0" />
+      <point x="789.3531746031747" y="889.0" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.cart" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s">
+      <point x="0.0" y="38.5" />
+      <point x="320.50000000000006" y="102.0" />
+      <point x="291.9722222222222" y="102.0" />
+      <point x="45.0" y="-137.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.order_s_products" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product">
+      <point x="40.0" y="-38.0" />
+      <point x="297.95039682539687" y="889.0" />
+      <point x="456.12500000000006" y="889.0" />
+      <point x="456.12500000000006" y="681.0" />
+      <point x="633.2083333333335" y="681.0" />
+      <point x="-69.16666666666663" y="104.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_param" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product">
+      <point x="0.0" y="-71.5" />
+      <point x="605.8531746031747" y="701.0" />
+      <point x="688.5416666666667" y="701.0" />
+      <point x="-13.833333333333371" y="104.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.cart_products" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product">
+      <point x="-36.25" y="-38.0" />
+      <point x="938.6031746031747" y="681.0" />
+      <point x="771.5416666666667" y="681.0" />
+      <point x="69.16666666666674" y="104.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_product_params" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_param">
+      <point x="52.0" y="-38.0" />
+      <point x="621.625" y="889.0" />
+      <point x="605.8531746031747" y="889.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s_addresses" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s">
+      <point x="40.0" y="-38.0" />
+      <point x="405.62500000000006" y="701.0" />
+      <point x="389.37500000000006" y="701.0" />
+      <point x="389.37500000000006" y="432.0" />
+      <point x="282.9722222222222" y="432.0" />
+      <point x="36.0" y="137.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.order_s" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s">
+      <point x="-40.25" y="-71.5" />
+      <point x="94.50000000000006" y="701.0" />
+      <point x="31.000000000000057" y="701.0" />
+      <point x="31.000000000000057" y="422.0" />
+      <point x="174.97222222222217" y="422.0" />
+      <point x="-72.0" y="137.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.spring_session_attributes" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.spring_session">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="93.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_product_descriptions" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product">
+      <point x="64.0" y="-38.0" />
+      <point x="909.375" y="889.0" />
+      <point x="891.8531746031747" y="889.0" />
+      <point x="891.8531746031747" y="691.0" />
+      <point x="743.875" y="691.0" />
+      <point x="41.5" y="104.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s_addresses" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.address">
+      <point x="-40.0" y="-38.0" />
+      <point x="325.62500000000006" y="701.0" />
+      <point x="312.50000000000006" y="701.0" />
+      <point x="37.0" y="93.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.order_s" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.address">
+      <point x="40.25" y="-71.5" />
+      <point x="175.00000000000006" y="701.0" />
+      <point x="238.50000000000006" y="701.0" />
+      <point x="-37.0" y="93.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.address" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s">
+      <point x="0.0" y="-93.5" />
+      <point x="275.50000000000006" y="432.0" />
+      <point x="246.97222222222217" y="432.0" />
+      <point x="0.0" y="137.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_role" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s">
+      <point x="0.0" y="-38.0" />
+      <point x="111.50000000000006" y="432.0" />
+      <point x="210.97222222222217" y="432.0" />
+      <point x="-36.0" y="137.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.cart">
+      <point x="-45.0" y="-137.5" />
+      <point x="201.97222222222217" y="102.0" />
+      <point x="281.83333333333337" y="102.0" />
+      <point x="-38.666666666666686" y="38.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.user_s">
+      <point x="-41.5" y="-104.5" />
+      <point x="660.875" y="422.0" />
+      <point x="318.9722222222222" y="422.0" />
+      <point x="72.0" y="137.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.order_s_products" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.order_s">
+      <point x="-40.0" y="-38.0" />
+      <point x="217.95039682539687" y="889.0" />
+      <point x="134.75000000000006" y="889.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product_product_params" target="85aaa2d5-e5bc-4692-a409-1cee67be7688.TABLE:diploma.public.product">
+      <point x="-52.0" y="-38.0" />
+      <point x="517.625" y="889.0" />
+      <point x="523.8531746031747" y="889.0" />
+      <point x="523.8531746031747" y="691.0" />
+      <point x="660.875" y="691.0" />
+      <point x="-41.5" y="104.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8" x="420.1250000000001" y="538.375" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
