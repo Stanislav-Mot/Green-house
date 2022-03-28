@@ -13,7 +13,7 @@ services:
       - POSTGRES_DB=greenhouse
       - PGDATA=/var/lib/postgresql/data/pgdata
     restart: always
-  app:
+  backend:
     build:
       context: .
       dockerfile: backend.Dockerfile
@@ -23,6 +23,22 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/greenhouse
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=admin
+      - clientId=hidden
+      - clientSecret=hidden
     restart: always
     links:
       - db
+  frontend:    
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    ports:
+      - 8080:80
+    restart: always
+  admin:
+    build:
+      context: .
+      dockerfile: admin.Dockerfile
+    ports:
+      - 4200:80
+    restart: always
