@@ -1,4 +1,4 @@
-package green.shop.diploma.entity;
+package green.shop.diploma.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "user_s")
-@EqualsAndHashCode(of = { "id" })
+@EqualsAndHashCode(of = {"id"})
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -28,38 +28,38 @@ public class User implements UserDetails {
     private String username;
 
     @Email(message = "Incorrect email")
-    @NotBlank(message="Email is required")
+    @NotBlank(message = "Email is required")
     private String email;
 
-    @NotBlank(message="Password is required")
+    @NotBlank(message = "Password is required")
     private String password;
 
-    private String first_name;
+    private String firstName;
 
-    private String last_name;
+    private String lastName;
 
     private String patronymic;
 
     private String phone;
 
-    private String user_pic;
+    private String userPic;
 
     private String activationCode;
 
     private boolean active;
 
     @OneToOne
-    private Cart cart;
+    private transient Cart cart;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_products",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Product> favourite_products;
+    private transient Set<Product> favouriteProducts;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Address> addresses = new ArrayList<>();
+    private transient List<Address> addresses = new ArrayList<>();
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))

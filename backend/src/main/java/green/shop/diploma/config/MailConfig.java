@@ -25,11 +25,11 @@ public class MailConfig {
     @Value("${spring.mail.protocol}")
     private String protocol;
 
-    @Value("${mail.debug}")
+    @Value("${custom.mail.debug}")
     private String debug;
 
     @Bean
-    public JavaMailSender getMailSender(){
+    public JavaMailSender getMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         mailSender.setHost(host);

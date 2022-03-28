@@ -1,13 +1,11 @@
 package green.shop.diploma.repository;
 
-import green.shop.diploma.entity.User;
+import green.shop.diploma.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepo extends JpaRepository<User,Long> {
+import java.util.Optional;
 
-    User findByEmail(String email);
-
-    User findByActivationCode(String activationCode);
-
-
+public interface UserRepo extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
+    Optional<User> findByActivationCode(String activationCode);
 }

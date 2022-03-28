@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private String SECRET_KEY = "8ArwtXCSmaDsv1peH7cXNBjD8dQL95BYIKKgzCrcSFGDF";
+    private final String SECRET_KEY = "8ArwtXCSmaDsv1peH7cXNBjD8dQL95BYIKKgzCrcSFGDF";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -27,6 +27,7 @@ public class JwtService {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }

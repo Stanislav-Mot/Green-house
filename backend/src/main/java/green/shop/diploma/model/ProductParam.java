@@ -1,4 +1,4 @@
-package green.shop.diploma.entity;
+package green.shop.diploma.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

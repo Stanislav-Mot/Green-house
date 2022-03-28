@@ -1,9 +1,17 @@
 package green.shop.diploma.servise;
 
-import green.shop.diploma.entity.Role;
-import green.shop.diploma.entity.User;
+import green.shop.diploma.exception.NotFoundException;
+import green.shop.diploma.model.Role;
+import green.shop.diploma.model.User;
+import green.shop.diploma.model.authentication.AuthenticationRequest;
+import green.shop.diploma.model.authentication.AuthenticationResponse;
 import green.shop.diploma.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,18 +26,21 @@ import java.util.UUID;
 @Service
 public class UserService implements UserDetailsService {
 
-    final UserRepo userRepo;
-
-    final PasswordEncoder passwordEncoder;
+    private final UserRepo userRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtTokenUtil;
 
     private final MailSenderService mailSender;
 
-    @Value("${hostname}")
+    @Value("${custom.hostname}")
     private String hostname;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepo userRepo, MailSenderService mailSender) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepo userRepo, AuthenticationManager authenticationManager, JwtService jwtTokenUtil, MailSenderService mailSender) {
         this.passwordEncoder = passwordEncoder;
         this.userRepo = userRepo;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
         this.mailSender = mailSender;
     }
 
@@ -37,42 +48,31 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(email);
-        if (user != null) {
-            return user;
-        }
-        throw new UsernameNotFoundException(
-                "User '" + email + "' not found");
+        return userRepo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User '" + email + "' not found"));
     }
 
-    public boolean addUser(User user) {
-        if (userRepo.findByEmail(user.getEmail()) != null) {
-            return false;
-        }
+    @Transactional
+    public User addUser(User user) {
+        userRepo.findByEmail(user.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("User '" + "email" + "' not found"));
 
         user.setActive(false);
         user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActivationCode(UUID.randomUUID().toString());
-        userRepo.save(user);
         sendMessage(user);
-
-        return true;
+        return user;
     }
 
-    public boolean activateUser(String code) {
-        User user = userRepo.findByActivationCode(code);
-
-        if (user == null) {
-            return false;
-        }
+    @Transactional
+    public String activateUser(String code) {
+        User user = userRepo.findByActivationCode(code)
+                .orElseThrow(() -> new UsernameNotFoundException("Code '" + code + "' not found"));
 
         user.setActivationCode(null);
         user.setActive(true);
 
-        userRepo.save(user);
-
-        return true;
+        return "Пользователь успешно активирован";
     }
 
     public void sendMessage(User user) {
@@ -80,11 +80,55 @@ public class UserService implements UserDetailsService {
             String message = String.format(
                     "Привет, %s! \n" +
                             "Добро пожаловать на GREEN HOUSE. Переди по ссылаке для активации: http://%s/user/%s/activate",
-                    user.getFirst_name(),
+                    user.getFirstName(),
                     hostname,
                     user.getActivationCode()
             );
             mailSender.send(user.getEmail(), "Activation code", message);
         }
+    }
+
+    public User getById(Long id) {
+        return userRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException(id, "user"));
+
+    }
+
+    public Iterable<User> getAll() {
+        return userRepo.findAll();
+    }
+
+    public void deleteById(Long id) {
+        userRepo.deleteById(id);
+    }
+
+    public User replaceUser(User replaced, Long id) {
+        return userRepo.findById(id)
+                .map(user -> {
+                    user.setFirstName(replaced.getFirstName());
+                    user.setLastName(replaced.getLastName());
+                    user.setPatronymic(replaced.getPatronymic());
+                    user.setPhone(replaced.getPhone());
+                    return userRepo.save(user);
+                })
+                .orElseGet(() -> {
+                    replaced.setId(id);
+                    return userRepo.save(replaced);
+                });
+    }
+
+    @Transactional
+    public ResponseEntity<AuthenticationResponse> authentication(AuthenticationRequest authenticationRequest) throws RuntimeException {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+        } catch (BadCredentialsException e) {
+            return new ResponseEntity<>(new AuthenticationResponse(null, null), HttpStatus.UNAUTHORIZED);
+        }
+
+        UserDetails userDetails = loadUserByUsername(authenticationRequest.getEmail());
+        final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+        return new ResponseEntity<>(new AuthenticationResponse(jwt, userDetails), HttpStatus.OK);
     }
 }

@@ -1,10 +1,7 @@
 package green.shop.diploma.controller;
 
-import green.shop.diploma.entity.Order;
-import green.shop.diploma.entity.User;
-import green.shop.diploma.exception.NotFoundException;
-import green.shop.diploma.repository.OrderRepo;
-import green.shop.diploma.repository.UserRepo;
+import green.shop.diploma.model.Order;
+import green.shop.diploma.servise.OrderService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -12,56 +9,39 @@ import java.util.Optional;
 @RestController
 public class OrderController {
 
-    private final OrderRepo repository;
+    private final OrderService orderService;
 
-    private final UserRepo userRepo;
-
-    OrderController(OrderRepo repository, UserRepo userRepo) {
-        this.repository = repository;
-        this.userRepo = userRepo;
+    OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     @GetMapping("/orders/{id}")
-    Order one(@PathVariable Long id){
-        return repository.findById(id)
-                .orElseThrow(() -> new NotFoundException(id, "order"));
+    public Order one(@PathVariable Long id) {
+        return orderService.getById(id);
     }
 
     @GetMapping("/orders")
-    Iterable<Order> all(){
-        return repository.findAll();
+    public Iterable<Order> all() {
+        return orderService.getAll();
     }
 
     @GetMapping("/orders/user/{id}")
-    Iterable<Order> byUser(@PathVariable Long id){
-        Optional<User> user = userRepo.findById(id);
-//        if(user.isEmpty()){
-//            return null;
-//        }else {
-//            return repository.findByUser(
-//                    user.get()
-//            );
-//        }
-        return null;
+    public Iterable<Order> getByUserId(@PathVariable Long id) {
+        return orderService.getByUserId(id);
     }
 
     @PostMapping("/orders")
-    Order newCategory(@RequestBody Order newOrder) {
-        return repository.save(newOrder);
+    public Order add(@RequestBody Order order) {
+        return orderService.add(order);
     }
 
     @DeleteMapping("/orders/{id}")
-    void deleteCategory(@PathVariable Long id) {
-        repository.deleteById(id);
+    public void deleteOrder(@PathVariable Long id) {
+        orderService.deleteById(id);
     }
 
     @PutMapping("/orders/{id}")
-    Optional<Order> replaceCategory(@RequestBody Order newOrder, @PathVariable Long id) {
-
-        return repository.findById(id)
-                .map(order -> {
-                    order.setStatus(newOrder.getStatus());
-                    return repository.save(order);
-                });
+    public Optional<Order> replaceOrderStatus(@RequestBody Order order, @PathVariable Long id) {
+        return orderService.setOrderStatus(order, id);
     }
 }

@@ -1,41 +1,39 @@
 package green.shop.diploma.util;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
-import com.amazonaws.internal.StaticCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
+@Component
 public class AmazonS3 {
 
-    private static String S3_BUCKET_NAME = "diploma-bucket";
+    private static final String S3_BUCKET_NAME = "diploma-bucket";
 
     public static com.amazonaws.services.s3.AmazonS3 getConnectionAmazonS3() {
-
-        final com.amazonaws.services.s3.AmazonS3 s3 = AmazonS3ClientBuilder
+        return AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new EnvironmentVariableCredentialsProvider())
                 .withRegion(Regions.EU_CENTRAL_1)
                 .build();
-        return s3;
     }
 
     public static File convert(MultipartFile file) throws IOException {
-        File convFile = new File(file.getOriginalFilename());
-        convFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(file.getBytes());
-        fos.close();
+        File convFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
+        if (convFile.createNewFile()) {
+            try (FileOutputStream fos = new FileOutputStream(convFile)) {
+                fos.write(file.getBytes());
+            }
+        }
         return convFile;
     }
 
@@ -50,7 +48,6 @@ public class AmazonS3 {
                         .withCannedAcl(CannedAccessControlList.PublicRead));
 
         connection.shutdown();
-
         return resultFilename;
     }
 

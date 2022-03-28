@@ -1,34 +1,26 @@
 package green.shop.diploma.controller;
 
-import green.shop.diploma.entity.Cart;
-import green.shop.diploma.entity.Product;
-import green.shop.diploma.repository.CartRepo;
+import green.shop.diploma.model.Cart;
+import green.shop.diploma.model.Product;
+import green.shop.diploma.servise.CartService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class CartController {
 
-    private final CartRepo repository;
+    private final CartService cartService;
 
-    CartController(CartRepo repository) {
-        this.repository = repository;
+    CartController(CartService cartService) {
+        this.cartService = cartService;
     }
 
     @PostMapping("/cart")
-    Cart add(@RequestBody Cart cart){
-        return repository.save(cart);
+    public Cart add(@RequestBody Cart cart) {
+        return cartService.add(cart);
     }
 
     @PutMapping("/cart/{id}")
-    void addProduct(@RequestBody Product product, @PathVariable Long id){
-        Cart cart = repository.findById(id).get();
-        List<Product> products = cart.getProducts();
-        products.add(product);
-        cart.setProducts(products);
-        repository.save(cart);
-
+    public void addProduct(@RequestBody Product product, @PathVariable Long id) {
+        cartService.addProduct(product, id);
     }
-
 }

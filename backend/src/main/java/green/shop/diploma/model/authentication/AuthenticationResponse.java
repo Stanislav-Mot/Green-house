@@ -1,7 +1,7 @@
-package green.shop.diploma.models;
+package green.shop.diploma.model.authentication;
 
-import green.shop.diploma.entity.Role;
-import green.shop.diploma.entity.User;
+import green.shop.diploma.model.Role;
+import green.shop.diploma.model.User;
 import lombok.Data;
 import org.springframework.security.core.userdetails.UserDetails;
 
