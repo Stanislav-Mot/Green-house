@@ -1,5 +1,6 @@
 package green.shop.diploma.servise;
 
+import green.shop.diploma.exception.NotFoundException;
 import green.shop.diploma.model.Cart;
 import green.shop.diploma.model.Product;
 import green.shop.diploma.repository.CartRepo;
@@ -21,7 +22,7 @@ public class CartService {
     }
 
     public void addProduct(Product product, Long id) {
-        Cart cart = cartRepo.findById(id).get();
+        Cart cart = cartRepo.findById(id).orElseThrow(() -> new NotFoundException(id, "Product"));
         List<Product> products = cart.getProducts();
         products.add(product);
         cart.setProducts(products);

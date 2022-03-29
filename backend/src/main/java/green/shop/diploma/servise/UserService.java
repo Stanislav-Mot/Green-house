@@ -28,7 +28,6 @@ public class UserService implements UserDetailsService {
 
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
     private final JwtService jwtTokenUtil;
 
     private final MailSenderService mailSender;
@@ -36,50 +35,46 @@ public class UserService implements UserDetailsService {
     @Value("${custom.hostname}")
     private String hostname;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepo userRepo, AuthenticationManager authenticationManager, JwtService jwtTokenUtil, MailSenderService mailSender) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepo userRepo, JwtService jwtTokenUtil, MailSenderService mailSender) {
         this.passwordEncoder = passwordEncoder;
         this.userRepo = userRepo;
-        this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.mailSender = mailSender;
     }
 
     @Transactional
     @Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         return userRepo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User '" + email + "' not found"));
     }
 
     @Transactional
     public User addUser(User user) {
-        userRepo.findByEmail(user.getEmail())
-                .orElseThrow(() -> new UsernameNotFoundException("User '" + "email" + "' not found"));
-
-        user.setActive(false);
-        user.setRoles(Collections.singleton(Role.ROLE_USER));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActivationCode(UUID.randomUUID().toString());
-        sendMessage(user);
-        return user;
+        if (userRepo.findByEmail(user.getEmail()).isPresent()) {
+            throw new UsernameNotFoundException("User '" + user.getEmail() + "' already exist");
+        } else {
+            user.setActive(false);
+            user.setRoles(Collections.singleton(Role.ROLE_USER));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setActivationCode(UUID.randomUUID().toString());
+            sendMessage(user);
+            return user;
+        }
     }
 
     @Transactional
     public String activateUser(String code) {
-        User user = userRepo.findByActivationCode(code)
-                .orElseThrow(() -> new UsernameNotFoundException("Code '" + code + "' not found"));
-
+        User user = userRepo.findByActivationCode(code).orElseThrow(() -> new NotFoundException(0L, code));
         user.setActivationCode(null);
         user.setActive(true);
-
         return "Пользователь успешно активирован";
     }
 
     public void sendMessage(User user) {
-        if (!StringUtils.isEmpty(user.getEmail())) {
+        if (!StringUtils.hasText(user.getEmail())) {
             String message = String.format(
                     "Привет, %s! \n" +
-                            "Добро пожаловать на GREEN HOUSE. Переди по ссылаке для активации: http://%s/user/%s/activate",
+                            "Добро пожаловать на GREEN HOUSE. Перейди по ссылке для активации: http://%s/user/%s/activate",
                     user.getFirstName(),
                     hostname,
                     user.getActivationCode()
@@ -89,9 +84,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User getById(Long id) {
-        return userRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException(id, "user"));
-
+        return userRepo.findById(id).orElseThrow(() -> new NotFoundException(id, "user"));
     }
 
     public Iterable<User> getAll() {
@@ -110,15 +103,14 @@ public class UserService implements UserDetailsService {
                     user.setPatronymic(replaced.getPatronymic());
                     user.setPhone(replaced.getPhone());
                     return userRepo.save(user);
-                })
-                .orElseGet(() -> {
+                }).orElseGet(() -> {
                     replaced.setId(id);
                     return userRepo.save(replaced);
                 });
     }
 
     @Transactional
-    public ResponseEntity<AuthenticationResponse> authentication(AuthenticationRequest authenticationRequest) throws RuntimeException {
+    public ResponseEntity<AuthenticationResponse> authentication(AuthenticationRequest authenticationRequest, AuthenticationManager authenticationManager) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));

@@ -2,8 +2,13 @@ package green.shop.diploma.controller;
 
 import green.shop.diploma.model.Category;
 import green.shop.diploma.servise.CategoryService;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 public class CategoryController {
@@ -14,6 +19,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/categories")
     public Iterable<Category> all() {
         return categoryService.getAll();
@@ -29,8 +35,8 @@ public class CategoryController {
         return categoryService.add(category);
     }
 
-    @PostMapping("/categories/{id}")
-    public Category addCategoryPic(@RequestParam("file") MultipartFile pic, @PathVariable Long id) {
+    @PostMapping(value = "/categories/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Category addCategoryPic(@RequestPart("file") @RequestParam("file") MultipartFile pic, @PathVariable Long id) {
         return categoryService.addCategoryPic(pic, id);
     }
 
@@ -45,7 +51,7 @@ public class CategoryController {
     }
 
     @PutMapping("/categories/{id}/pic")
-    public Category replaceCategoryPic(@RequestParam("file") MultipartFile pic, @PathVariable Long id) {
+    public Category replaceCategoryPic(@Valid @NotNull @RequestParam("file") MultipartFile pic, @PathVariable Long id) {
         return categoryService.replaceCategoryPic(pic, id);
     }
 }

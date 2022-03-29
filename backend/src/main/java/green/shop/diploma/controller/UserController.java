@@ -5,15 +5,18 @@ import green.shop.diploma.model.authentication.AuthenticationRequest;
 import green.shop.diploma.model.authentication.AuthenticationResponse;
 import green.shop.diploma.servise.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
 
     private final UserService userService;
+    private final AuthenticationManager authenticationManager;
 
-    UserController(UserService userService) {
+    UserController(UserService userService, AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.authenticationManager = authenticationManager;
     }
 
     @GetMapping("/users/{id}")
@@ -48,6 +51,6 @@ public class UserController {
 
     @PostMapping(value = "/authenticate")
     public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
-        return userService.authentication(authenticationRequest);
+        return userService.authentication(authenticationRequest, authenticationManager);
     }
 }

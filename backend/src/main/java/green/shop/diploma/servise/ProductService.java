@@ -2,12 +2,10 @@ package green.shop.diploma.servise;
 
 import green.shop.diploma.exception.NotFoundException;
 import green.shop.diploma.model.Product;
-import green.shop.diploma.model.ProductDescription;
 import green.shop.diploma.model.ProductParam;
 import green.shop.diploma.repository.DescriptionRepo;
 import green.shop.diploma.repository.ParameterRepo;
 import green.shop.diploma.repository.ProductRepo;
-import green.shop.diploma.util.AmazonS3;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,38 +13,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static green.shop.diploma.util.AmazonS3.deleteObjectAmazonS3;
-
 @Service
 public class ProductService {
 
-    private final ProductRepo repository;
+    private final ProductRepo productRepo;
     private final DescriptionRepo descriptionRepo;
     private final ParameterRepo parameterRepo;
+    private final AmazonService amazonService;
 
-    ProductService(ProductRepo repository, DescriptionRepo descriptionRepo, ParameterRepo parameterRepo) {
-        this.repository = repository;
+    ProductService(ProductRepo productRepo, DescriptionRepo descriptionRepo, ParameterRepo parameterRepo, AmazonService amazonService) {
+        this.productRepo = productRepo;
         this.descriptionRepo = descriptionRepo;
         this.parameterRepo = parameterRepo;
+        this.amazonService = amazonService;
     }
 
     public void deleteProduct(Long id) {
-        Product product = repository.findById(id).orElseThrow(() -> new RuntimeException("id not found"));
-
-        Iterable<ProductDescription> productDescriptionList = descriptionRepo.findByProduct(product);
-
-        for (ProductDescription item : productDescriptionList) {
-            descriptionRepo.deleteById(item.getId());
-        }
-        repository.delete(product);
+        Product product = productRepo.findById(id).orElseThrow(() -> new NotFoundException(id, "Product"));
+        descriptionRepo.findByProduct(product).forEach(description -> descriptionRepo.deleteById(description.getId()));
+        productRepo.delete(product);
     }
 
     public Product getById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException(id, "product"));
+        return productRepo.findById(id).orElseThrow(() -> new NotFoundException(id, "Product"));
     }
 
     public Iterable<Product> getAll() {
-        return repository.findAll();
+        return productRepo.findAll();
     }
 
     public Product add(Product product) {
@@ -57,42 +50,37 @@ public class ProductService {
 
         parameterRepo.saveAll(productParams);
         product.setProductParams(productParams);
-        return repository.save(product);
+        return productRepo.save(product);
     }
 
     public Product replaceProduct(Product newProduct, Long id) {
-        return repository.findById(id)
+        return productRepo.findById(id)
                 .map(product -> {
                     product.setName(newProduct.getName());
                     product.setPicture(newProduct.getPicture());
                     product.setPrice(newProduct.getPrice());
                     product.setSale(newProduct.getSale());
                     product.setCategory(newProduct.getCategory());
-
-                    return repository.save(product);
-                })
-                .orElseGet(() -> {
+                    return productRepo.save(product);
+                }).orElseGet(() -> {
                     newProduct.setId(id);
-                    return repository.save(newProduct);
+                    return productRepo.save(newProduct);
                 });
     }
 
     public Product replaceProductPic(MultipartFile pic, Long id) {
-        return repository.findById(id)
+        return productRepo.findById(id)
                 .map(product -> {
-                    if (pic != null) {
-                        try {
-                            String picUrl = AmazonS3.putObjectAmazonS3(pic);
-                            if (product.getPicture() != null) {
-                                deleteObjectAmazonS3(product.getPicture());
-                            }
-                            product.setPicture(picUrl);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    try {
+                        String picUrl = amazonService.putObjectAmazonS3(pic);
+                        if (product.getPicture() != null) {
+                            amazonService.deleteObjectAmazonS3(product.getPicture());
                         }
+                        product.setPicture(picUrl);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    return repository.save(product);
-                })
-                .orElse(null);
+                    return productRepo.save(product);
+                }).orElseThrow(() -> new NotFoundException(id, "Product"));
     }
 }

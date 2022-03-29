@@ -3,21 +3,20 @@ package green.shop.diploma.servise;
 import green.shop.diploma.exception.NotFoundException;
 import green.shop.diploma.model.Category;
 import green.shop.diploma.repository.CategoryRepo;
-import green.shop.diploma.util.AmazonS3;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-import static green.shop.diploma.util.AmazonS3.deleteObjectAmazonS3;
-
 @Service
 public class CategoryService {
 
     private final CategoryRepo categoryRepo;
+    private final AmazonService amazonService;
 
-    public CategoryService(CategoryRepo categoryRepo) {
+    public CategoryService(CategoryRepo categoryRepo, AmazonService amazonService) {
         this.categoryRepo = categoryRepo;
+        this.amazonService = amazonService;
     }
 
     public Iterable<Category> getAll() {
@@ -25,8 +24,7 @@ public class CategoryService {
     }
 
     public Category getById(Long id) {
-        return categoryRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException(id, "category"));
+        return categoryRepo.findById(id).orElseThrow(() -> new NotFoundException(id, "category"));
     }
 
     public Category add(Category category) {
@@ -36,22 +34,20 @@ public class CategoryService {
     public Category addCategoryPic(MultipartFile pic, Long id) {
         return categoryRepo.findById(id)
                 .map(category -> {
-                    if (pic != null) {
-                        try {
-                            String picUrl = AmazonS3.putObjectAmazonS3(pic);
-                            category.setPicture(picUrl);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        String picUrl = amazonService.putObjectAmazonS3(pic);
+                        category.setPicture(picUrl);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                     return categoryRepo.save(category);
                 }).orElseThrow(() -> new RuntimeException("Not added"));
     }
 
     public void deleteById(Long id) {
-        Category category = categoryRepo.findById(id).orElseThrow(() -> new RuntimeException("category not found"));
+        Category category = categoryRepo.findById(id).orElseThrow(() -> new NotFoundException(id, "Category"));
         if (category.getPicture() != null && !category.getPicture().isEmpty()) {
-            deleteObjectAmazonS3(category.getPicture());
+            amazonService.deleteObjectAmazonS3(category.getPicture());
         }
         categoryRepo.deleteById(id);
     }
@@ -71,19 +67,16 @@ public class CategoryService {
     public Category replaceCategoryPic(MultipartFile pic, Long id) {
         return categoryRepo.findById(id)
                 .map(category -> {
-                    if (pic != null) {
-                        try {
-                            String picUrl = AmazonS3.putObjectAmazonS3(pic);
-                            if (category.getPicture() != null) {
-                                deleteObjectAmazonS3(category.getPicture());
-                            }
-                            category.setPicture(picUrl);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    try {
+                        String picUrl = amazonService.putObjectAmazonS3(pic);
+                        if (category.getPicture() != null) {
+                            amazonService.deleteObjectAmazonS3(category.getPicture());
                         }
+                        category.setPicture(picUrl);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                     return categoryRepo.save(category);
-                })
-                .orElse(null);
+                }).orElseThrow(() -> new NotFoundException(id, "Category"));
     }
 }

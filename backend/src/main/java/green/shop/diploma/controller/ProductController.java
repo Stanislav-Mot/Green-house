@@ -6,6 +6,9 @@ import green.shop.diploma.servise.ProductService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 @RestController
 public class ProductController {
 
@@ -43,7 +46,7 @@ public class ProductController {
     }
 
     @PutMapping("/products/{id}/pic")
-    public Product replaceProductPic(@RequestParam("file") MultipartFile pic, @PathVariable Long id) {
+    public Product replaceProductPic(@Valid @NotNull @RequestParam("file") MultipartFile pic, @PathVariable Long id) {
         return productService.replaceProductPic(pic, id);
     }
 

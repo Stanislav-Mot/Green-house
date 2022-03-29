@@ -28,10 +28,8 @@ public class ParameterService {
                 .map(productParam -> {
                     productParam.setPercent(newProductParam.getPercent());
                     productParam.setText(newProductParam.getText());
-
                     return parameterRepo.save(productParam);
-                })
-                .orElseGet(() -> {
+                }).orElseGet(() -> {
                     newProductParam.setId(id);
                     return parameterRepo.save(newProductParam);
                 });

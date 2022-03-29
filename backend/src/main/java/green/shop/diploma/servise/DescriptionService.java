@@ -40,8 +40,7 @@ public class DescriptionService {
                     productDescription.setHeading(newProductDescription.getHeading());
                     productDescription.setText(newProductDescription.getText());
                     return descriptionRepo.save(productDescription);
-                })
-                .orElseGet(() -> {
+                }).orElseGet(() -> {
                     newProductDescription.setId(id);
                     return descriptionRepo.save(newProductDescription);
                 });

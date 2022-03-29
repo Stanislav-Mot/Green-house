@@ -15,8 +15,7 @@ public class AddressService {
     }
 
     public Address getById(Long id) {
-        return addressRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException(id, "address"));
+        return addressRepo.findById(id).orElseThrow(() -> new NotFoundException(id, "address"));
     }
 
     public Iterable<Address> getAll() {

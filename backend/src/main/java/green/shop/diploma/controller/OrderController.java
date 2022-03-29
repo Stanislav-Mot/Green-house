@@ -4,8 +4,6 @@ import green.shop.diploma.model.Order;
 import green.shop.diploma.servise.OrderService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 public class OrderController {
 
@@ -41,7 +39,7 @@ public class OrderController {
     }
 
     @PutMapping("/orders/{id}")
-    public Optional<Order> replaceOrderStatus(@RequestBody Order order, @PathVariable Long id) {
+    public Order replaceOrderStatus(@RequestBody Order order, @PathVariable Long id) {
         return orderService.setOrderStatus(order, id);
     }
 }

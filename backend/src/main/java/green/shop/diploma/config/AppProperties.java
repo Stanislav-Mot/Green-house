@@ -14,4 +14,6 @@ public class AppProperties {
     private String email;
     private String author;
     private String hostname;
+    private String mailDebug;
+    private String secretKey;
 }
