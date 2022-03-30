@@ -5,10 +5,13 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Arrays;
 
 @Configuration
 public class SwaggerConfig {
@@ -31,12 +34,9 @@ public class SwaggerConfig {
                         .version(appVersion)
                         .description(appDescription)
                         .title("Task Tracker")
-                        .license(new License().name("Apache 3.0")
-                                .url("https://springdoc.org"))
-                        .contact(
-                                new Contact()
-                                        .email(email)
-                                        .url(url)
-                                        .name(author)));
+                        .license(new License().name("Apache 3.0").url("https://springdoc.org"))
+                        .contact(new Contact().email(email).url(url).name(author)))
+                .addSecurityItem(
+                        new SecurityRequirement().addList("bearerAuth", Arrays.asList("read", "write")));
     }
 }

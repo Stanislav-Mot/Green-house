@@ -8,18 +8,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -41,24 +43,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http = http.cors().disable();
-        http = http.csrf().disable();
+        http
+                .csrf().disable()
 
-        http = http
                 .exceptionHandling()
                 .authenticationEntryPoint(
                         (request, response, ex) -> response.sendError(
                                 HttpServletResponse.SC_UNAUTHORIZED,
                                 ex.getMessage()))
-                .and();
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/authenticate", "/users", "/user/**", "/products,", "/products/**").permitAll()
-                .anyRequest().authenticated()
+
                 .and()
-                .exceptionHandling().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests().antMatchers(
+                        "/",
+                        "/authenticate",
+                        "/users",
+                        "/user/**",
+                        "/products",
+                        "/products/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/v3/**").permitAll()
+                .and().authorizeRequests().antMatchers("/**").hasRole("USER")
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and();
     }
 
     @Override

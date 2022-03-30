@@ -224,7 +224,8 @@ alter table if exists user_s_addresses
 insert into user_s (id, email, password, active)
 values (1, 'admin@admin.com', 'admin', true);
 insert into user_role(user_id, roles)
-values (1, 'ROLE_ADMIN');
+values (1, 'ROLE_ADMIN'),
+       (1, 'ROLE_USER');
 
 
 create extension if not exists pgcrypto;
