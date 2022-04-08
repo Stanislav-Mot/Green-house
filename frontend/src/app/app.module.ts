@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatDialogModule}  from '@angular/material/dialog';
+import { MatDialogModule} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -26,11 +26,11 @@ import {
   UserPageInfoComponent,
   UserPageHistoryComponent
 } from './components/user-page';
-import { DialogRegAuthComponent } from './components/dialog-authentication/dialog-reg-auth/dialog-reg-auth.component'
-import { DialogMessageComponent } from './components/dialog-authentication/dialog-message/dialog-message.component'
-import { RedirectAuthComponent } from './components/redirect-reg/redirect-auth.component'
-import { DialogUpdateAddressComponent } from './components/user-page/user-page-info/dialog-reg-auth/dialog-reg-auth.component'
-import { DialogUpdateAdrMesComponent } from './components/user-page/user-page-info/dialog-message/dialog-update-adr-mes.component'
+import { DialogRegAuthComponent } from './components/dialog-authentication/dialog-reg-auth/dialog-reg-auth.component';
+import { DialogMessageComponent } from './components/dialog-authentication/dialog-message/dialog-message.component';
+import { RedirectAuthComponent } from './components/redirect-reg/redirect-auth.component';
+import { DialogUpdateAddressComponent } from './components/user-page/user-page-info/dialog-reg-auth/dialog-reg-auth.component';
+import { DialogUpdateAdrMesComponent } from './components/user-page/user-page-info/dialog-message/dialog-update-adr-mes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +66,7 @@ import { DialogUpdateAdrMesComponent } from './components/user-page/user-page-in
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptor,
     multi: true,
-  },{
+  }, {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorInterceptor,
     multi: true,
